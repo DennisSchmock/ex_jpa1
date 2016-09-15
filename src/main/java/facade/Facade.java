@@ -30,6 +30,12 @@ public class Facade {
         return emf.createEntityManager();
     }
     
+    /**
+     * Create a new user based on name and email, and persist to DB
+     * @param username
+     * @param email
+     * @return
+     */
     public ProjectUser createProjectUser(String username, String email) {
         ProjectUser user = new ProjectUser(username, email);
         EntityManager em = getEntityManager();
@@ -44,6 +50,11 @@ public class Facade {
         return user;
     }
     
+    /**
+     * Add a user to DB
+     * @param user
+     * @return
+     */
     public ProjectUser addProjectUser(ProjectUser user) {
         EntityManager em = getEntityManager();
         try {
@@ -56,6 +67,11 @@ public class Facade {
         return user;
     }
     
+    /**
+     * Find a specific user, based on user id.
+     * @param id
+     * @return
+     */
     public ProjectUser findUser(int id) {
         EntityManager em = getEntityManager();
         ProjectUser user = null;
@@ -67,12 +83,22 @@ public class Facade {
         return user;
     }
     
+    /**
+     * Find and return a list of all users, using a Query.
+     * @return
+     */
     public List<ProjectUser> findAllUsers() {
         List<ProjectUser> users;
         Query q = getEntityManager().createQuery("SELECT p FROM ProjectUser p");
         return users = q.getResultList();
     }
     
+    /**
+     * Create and persist a project
+     * @param name
+     * @param description
+     * @return
+     */
     public Project createProject(String name, String description) {
         Project project = new Project(name, description);
         project.setCreationDate(new Date());
@@ -87,6 +113,11 @@ public class Facade {
         return project;
     }
     
+    /**
+     * This method assigns a user to a project and persists it to DB
+     * @param user
+     * @param project
+     */
     public void assignUserToProject(ProjectUser user, Project project) {
         user.addProject(project);
         project.addProjectUser(user);
@@ -101,6 +132,11 @@ public class Facade {
         }
     }
     
+    /**
+     * This method finds a specific project based on project id.
+     * @param id
+     * @return
+     */
     public Project findProject(int id) {
         Project project = null;
         EntityManager em = getEntityManager();
@@ -112,6 +148,15 @@ public class Facade {
         return project;
     }
     
+    /**
+     * The purpose of this method is to create a new task, and assign it to a 
+     * specific project, persisting and merging. 
+     * @param name
+     * @param desc
+     * @param hoursAssigned
+     * @param project
+     * @return
+     */
     public Task createTaskAndAssignToProject(String name, String desc, int hoursAssigned, Project project) {
         Task task = new Task(name, desc, hoursAssigned);
         task.setProject(project);

@@ -21,18 +21,23 @@ public class Main {
         Persistence.generateSchema("pu", null);
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
         Facade facade = new Facade(emf);
+        
+        //Create two users
         ProjectUser user1 = facade.createProjectUser("Dennis Schmock", "dennis@schmock.eu");
         ProjectUser user2 = facade.createProjectUser("2Dennis Schmock", "dennis@schmock.eu");
         
+        //Create three projects
         Project pro1 = facade.createProject("1Build this", "Very nice!!");
         Project pro2 = facade.createProject("2Build this", "Very nice!!");
         Project pro3 = facade.createProject("3Build this", "Very nice!!");
         
+        //Assign users to projects and projects to users
         facade.assignUserToProject(user1, pro1);
         facade.assignUserToProject(user1, pro2);
         facade.assignUserToProject(user1, pro3);
         facade.assignUserToProject(user2, pro3);
         
+        //Create a task
         facade.createTaskAndAssignToProject("New windows", "Yes", 50, pro3);
         
         

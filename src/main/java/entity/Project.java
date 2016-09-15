@@ -32,13 +32,13 @@ public class Project implements Serializable {
     private Integer id;
     private String name;
     private String description;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModified;
-    
+
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<Task> tasks = new ArrayList<>();
 
@@ -52,9 +52,18 @@ public class Project implements Serializable {
         this.name = name;
         this.description = description;
     }
+    
+    //Method for adding a task to project Task List
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+    
+    //Method for adding a user to the project.
+    public void addProjectUser(ProjectUser user) {
+        this.projectUsers.add(user);
+    }
 
-    
-    
+    //Getters and setters below this point
     public Integer getId() {
         return id;
     }
@@ -77,9 +86,8 @@ public class Project implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public void addProjectUser(ProjectUser user){
-        this.projectUsers.add(user);
-    }
+    
+
     /**
      * @return the projectUsers
      */
@@ -136,9 +144,6 @@ public class Project implements Serializable {
         this.lastModified = lastModified;
     }
 
-    public void addTask(Task task){
-        this.tasks.add(task);
-    }
     /**
      * @return the tasks
      */

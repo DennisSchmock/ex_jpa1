@@ -47,9 +47,14 @@ public class ProjectUser implements Serializable {
         this.email = email;
     }
 
+    //Method for adding a project to the users project list.
     public void addProject(Project project){
         this.projects.add(project);
     }
+    
+    
+    
+    //Getters and setters below this point
     public Integer getId() {
         return id;
     }
@@ -57,10 +62,6 @@ public class ProjectUser implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-  
-    
-   
 
     /**
      * @return the projects
