@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,17 +30,29 @@ public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String userName;
-    private String email;
-    
-    @OneToMany(mappedBy = "project")
-    private List<Task> tasks = new ArrayList<>();
+    private String name;
+    private String description;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModified;
     
-    @ManyToMany(mappedBy = "projects")
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
     private List<ProjectUser> projectUsers = new ArrayList<>();
+
+    public Project() {
+    }
+
+    public Project(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     
     
     public Integer getId() {
@@ -48,59 +61,6 @@ public class Project implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (getId() != null ? getId().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Project)) {
-            return false;
-        }
-        Project other = (Project) object;
-        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.Project[ id=" + getId() + " ]";
-    }
-
-    /**
-     * @return the userName
-     */
-    public String getUserName() {
-        return userName;
-    }
-
-    /**
-     * @param userName the userName to set
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     /**
@@ -117,6 +77,9 @@ public class Project implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public void addProjectUser(ProjectUser user){
+        this.projectUsers.add(user);
+    }
     /**
      * @return the projectUsers
      */
@@ -129,6 +92,65 @@ public class Project implements Serializable {
      */
     public void setProjectUsers(List<ProjectUser> projectUsers) {
         this.projectUsers = projectUsers;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the lastModified
+     */
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * @param lastModified the lastModified to set
+     */
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public void addTask(Task task){
+        this.tasks.add(task);
+    }
+    /**
+     * @return the tasks
+     */
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
+     * @param tasks the tasks to set
+     */
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
 }

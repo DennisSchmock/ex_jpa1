@@ -25,20 +25,31 @@ public class ProjectUser implements Serializable {
 
     @ManyToMany
     private List<Project> projects;
-    private String name;
-    private String description;
     
+
+    private String userName;
+    private String email;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModified;
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    public ProjectUser() {
+    }
+
+    public ProjectUser(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+    }
+
+    public void addProject(Project project){
+        this.projects.add(project);
+    }
     public Integer getId() {
         return id;
     }
@@ -47,30 +58,9 @@ public class ProjectUser implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProjectUser)) {
-            return false;
-        }
-        ProjectUser other = (ProjectUser) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.ProjectUser[ id=" + id + " ]";
-    }
+  
+    
+   
 
     /**
      * @return the projects
@@ -86,33 +76,7 @@ public class ProjectUser implements Serializable {
         this.projects = projects;
     }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  
 
     /**
      * @return the created
@@ -129,17 +93,33 @@ public class ProjectUser implements Serializable {
     }
 
     /**
-     * @return the lastModified
+     * @return the userName
      */
-    public Date getLastModified() {
-        return lastModified;
+    public String getUserName() {
+        return userName;
     }
 
     /**
-     * @param lastModified the lastModified to set
+     * @param userName the userName to set
      */
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-    
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+   
+
 }
