@@ -17,6 +17,11 @@ import javax.persistence.Id;
  */
 @Entity
 public class Task implements Serializable {
+    
+    private String name;
+    private String description;
+    private int hoursAssigned;
+    private int hoursUsed;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,6 +59,62 @@ public class Task implements Serializable {
     @Override
     public String toString() {
         return "entity.Task[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the hoursAssigned
+     */
+    public int getHoursAssigned() {
+        return hoursAssigned;
+    }
+
+    /**
+     * @param hoursAssigned the hoursAssigned to set
+     */
+    public void setHoursAssigned(int hoursAssigned) {
+        this.hoursAssigned = hoursAssigned;
+    }
+
+    /**
+     * @return the hoursUsed
+     */
+    public int getHoursUsed() {
+        return hoursUsed;
+    }
+
+    /**
+     * @param hoursUsed the hoursUsed to set
+     */
+    public void setHoursUsed(int hoursUsed) {
+        this.hoursUsed = hoursUsed;
     }
     
 }

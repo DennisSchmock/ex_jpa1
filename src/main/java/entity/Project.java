@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,10 +27,13 @@ public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String userName;
     private String email;
+    
+    @OneToMany(mappedBy = "project")
+    private List<Task> tasks = new ArrayList<>();
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
@@ -49,7 +53,7 @@ public class Project implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -60,7 +64,7 @@ public class Project implements Serializable {
             return false;
         }
         Project other = (Project) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -68,7 +72,63 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Project[ id=" + id + " ]";
+        return "entity.Project[ id=" + getId() + " ]";
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the creationDate
+     */
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * @param creationDate the creationDate to set
+     */
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    /**
+     * @return the projectUsers
+     */
+    public List<ProjectUser> getProjectUsers() {
+        return projectUsers;
+    }
+
+    /**
+     * @param projectUsers the projectUsers to set
+     */
+    public void setProjectUsers(List<ProjectUser> projectUsers) {
+        this.projectUsers = projectUsers;
     }
 
 }
